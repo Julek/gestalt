@@ -1,0 +1,4 @@
+default 0
+
+title virginix
+kernel /boot/kernel.bin
