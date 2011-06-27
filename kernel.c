@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <gdt.h>
 
 void k_main(void* multi_data, unsigned int magic)
 {
