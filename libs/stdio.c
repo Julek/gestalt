@@ -48,5 +48,7 @@ void clear_screen()
 {
   for(int i = 0; i < 2000; i++)
     videoram[i] = 0;
+  cursor = 0;
+  set_cursor(0);
   return;
 }

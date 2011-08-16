@@ -1,8 +1,8 @@
 all:
-	sudo make build > /dev/null
+	sudo make build &> /dev/null
 
 build: virginix.iso
-	rm -f loader.o kernel.o stdio.o system.o kernel.bin
+#	rm -f *.o *.bin
 
 loader.o : loader.asm
 	nasm -f elf -o loader.o loader.asm
@@ -19,8 +19,11 @@ system.o : ./libs/system.c
 gdt.o : ./libs/gdt.c
 	i586-elf-gcc -o gdt.o -c ./libs/gdt.c -Wall -Wextra -Werror -nostdlib -nostartfiles -nodefaultlibs -std=c99 -I ./include
 
-kernel.bin : loader.o kernel.o stdio.o system.o gdt.o
-	i586-elf-ld -T linker.ld -o kernel.bin loader.o kernel.o stdio.o system.o
+paging.o : ./libs/paging.c
+	i586-elf-gcc -o paging.o -c ./libs/paging.c -Wall -Wextra -Werror -nostdlib -nostartfiles -nodefaultlibs -std=c99 -I ./include
+
+kernel.bin : loader.o kernel.o stdio.o system.o gdt.o paging.o
+	i586-elf-ld -T linker.ld -o kernel.bin loader.o kernel.o stdio.o system.o gdt.o paging.o
 
 virginix.iso : kernel.bin ./isofiles/boot/grub/stage2_eltorito
 	sudo cp ./kernel.bin ./isofiles/boot/
