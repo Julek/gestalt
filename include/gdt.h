@@ -28,10 +28,10 @@ enum entry_type {k_text = 0, k_data = 1, k_rodata = 2, k_bss = 3, d_text = 4, d_
 
 typedef enum entry_type entry_type;
 
-void start_gdt();
+extern void start_gdt();
 
-bool add_gdt_entry(unsigned int base, unsigned int limit, entry_type t);
+extern bool add_gdt_entry(unsigned int base, unsigned int limit, entry_type t);
 
-void lgdt();
+extern void lgdt();
 
 #endif

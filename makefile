@@ -2,7 +2,8 @@ all:
 	sudo make build &> /dev/null
 
 build: virginix.iso
-#	rm -f *.o *.bin
+	ndisasm -u kernel.bin > out.txt 
+	rm -f *.o *.bin
 
 loader.o : loader.asm
 	nasm -f elf -o loader.o loader.asm

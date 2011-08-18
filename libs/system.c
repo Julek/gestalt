@@ -13,3 +13,14 @@ void outb(unsigned short port, unsigned char val)
   return;
 }
 
+void cli()
+{
+  __asm__ __volatile__ ("cli");
+  return;
+}
+
+void sti()
+{
+  __asm__ __volatile__ ("sti");
+  return;
+}

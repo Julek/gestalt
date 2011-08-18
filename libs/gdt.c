@@ -1,5 +1,6 @@
 #include <gdt.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 gdt_entry table[8192];
 gdt_descriptor desc = {.size = 0, .offset = (unsigned int)&table};
@@ -42,7 +43,7 @@ bool add_gdt_entry(unsigned int base, unsigned int limit, entry_type t)
   curr->base_b = (unsigned short)(base & 0x0000FFFF);
   curr->base_tb = (unsigned char)((base & 0x00FF0000) >> 16);
   curr->access = access_bytes[t];
-  curr->flags_limt = 0xC0 & ((0xF0000 & limit) >> 16);
+  curr->flags_limt = 0xC0 | ((0xF0000 & limit) >> 16);
   curr->base_tt = (unsigned char)((base & 0xFF000000) >> 24);
   
   desc.size += 8;
@@ -57,5 +58,6 @@ void lgdt()
   __asm__ __volatile__ ("pushl $0x08;\n");
   __asm__ __volatile__ ("lea jump, %%eax;\n pushl %%eax;\n lret;\n" ::: "%eax");
   __asm__ __volatile__ ("jump:");
+  print("GDT and segment registers succesfully updated.\n");
   return;
 }
