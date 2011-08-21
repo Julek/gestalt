@@ -23,15 +23,13 @@ struct gdt_entry
   unsigned char base_tt;
 } __attribute__ ((packed));
 
-enum entry_type {k_text = 0, k_data = 1, k_rodata = 2, k_bss = 3, d_text = 4, d_data = 5 , d_rodata = 6, d_bss = 7, s_text = 8, s_data = 9, s_rodata = 10, s_bss = 11, a_text = 12, a_data = 13, a_rodata = 14, a_bss = 15};
+enum segment {k_text = 0, k_data = 1, k_rodata = 2, d_text = 3, d_data = 4, d_rodata = 5, s_text = 6, s_data = 7, s_rodata = 8, a_text = 9, a_data = 10, a_rodata = 11};
 //k = kernel, d = driver, s = subkernel, a = application.
 
-typedef enum entry_type entry_type;
+typedef enum segment segment;
 
-extern void start_gdt();
+extern void gdt_init();
 
-extern bool add_gdt_entry(unsigned int base, unsigned int limit, entry_type t);
-
-extern void lgdt();
+extern bool set_segments(segment code, segment data);
 
 #endif

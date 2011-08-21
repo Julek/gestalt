@@ -1,7 +1,8 @@
 [BITS 32]
 
 global loader
-global kill
+	
+extern	kill
 extern k_main
 
 section .text
@@ -19,14 +20,7 @@ loader:
 	push ebx
 
 	call k_main
-
-kill:	
-	cli
-	
-hang:
-	hlt
-	jmp hang
-
+	call kill
 	
 section .bss
 align 4

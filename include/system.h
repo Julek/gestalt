@@ -6,4 +6,6 @@ extern void outb(unsigned short port, unsigned char val);
 extern void cli();
 extern void sti();
 
+extern void kill();
+
 #endif

@@ -12,11 +12,40 @@ void print(char* string)
       if(string[i] == '\n')
 	{
 	  cursor = cursor + 80 - (cursor % 80);
+
+	  if(cursor > (80*25))
+	    scroll(1);
+
 	  continue;
 	}
-      videoram[cursor++] = (unsigned short)(string[i]) | attributes; 
+      videoram[cursor++] = (unsigned short)(string[i]) | attributes;
+
+      if(cursor > (80*25))
+	  scroll(1);
+
     }
   set_cursor(cursor);
+  return;
+}
+
+void scroll(unsigned char lines)
+{
+  if(lines > 25)
+    {
+      clear_screen();
+      cursor = 0;
+      set_cursor(cursor);
+      return;
+    }
+
+  for(int i = 0; i <= ((25 - lines)*80); i++)
+    videoram[i] = videoram[i + (80 * lines)];
+
+  if(cursor < 80*lines)
+    cursor = 0;
+  else
+    cursor -= (80*lines);
+
   return;
 }
 
