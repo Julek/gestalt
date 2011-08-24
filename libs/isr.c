@@ -72,9 +72,9 @@ char* exceptions[32] = {
 
 void isrs_install()
 {
-  print("Setting up IDT");
+  print("Setting up IDT.\n");
   setup_idt();
-  print("Adding ISRs to IDT");
+  print("Adding ISRs to IDT.\n");
   add_kint(0, (unsigned int)isr0, 0x08);
   add_kint(1, (unsigned int)isr1, 0x08);
   add_kint(2, (unsigned int)isr2, 0x08);
@@ -107,25 +107,41 @@ void isrs_install()
   add_kint(29, (unsigned int)isr29, 0x08);
   add_kint(30, (unsigned int)isr30, 0x08);
   add_kint(31, (unsigned int)isr31, 0x08);
-  print("Switching to new IDT.");
+  print("Switching to new IDT.\n");
   lidt();
+  cli();
   sti();
-  print("Switched to new IDT and interupts are on.");
+  print("Switched to new IDT and interupts are on.\n");
   return;
 }
 
 typedef struct regs regs;
 
-struct regs
+struct regs //Something seriouslyt wrong here... check sizes, order and remember stack protector...
 {
   unsigned int gs, fs, es, ds;
   unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
   unsigned int int_no, error_code;
-  unsigned int eip, cs, eflags, oesp, ss;
+  unsigned int eip;
+  unsigned int cs;
+  unsigned int eflags, oesp;
+  unsigned int ss;
 } __attribute__ ((packed));
 
 void error_handler(regs* r)
 {
-  print(exceptions[r->int_no]);
+  print("gs: %u\nfs: %u\nes: %u\nds: %u\nedi: %u\nesi: %u\nebp: %u\nesp: %u\nebx: %u\nedx: %u\necx: %u\neax: %u\nint_no: %u\nerror_code: %u\neip: %u\ncs: %u\neflags: %u\noesp: %u\nss: %u\n", r->gs, r->fs, r->es, r->ds, r->edi, r->esi, r->ebp, r->esp, r->ebx, r->edx, r->ecx, r->eax, (unsigned int) r->int_no, (unsigned int) r->error_code, r->eip, (unsigned int) r->cs, r->eflags, r->oesp, (unsigned int) r->ss);
+  if(r->int_no < 32)
+    {
+      print(exceptions[r->int_no]);
+      print("\nSystem Halting, error", r->gs);
+      kill();
+    }
+  else
+    {
+      print("Unknown exception, this shouldn't be here....\n");
+      print("\nSystem Halting, error\n");
+      kill();
+    }
   return;
 }

@@ -32,106 +32,213 @@ global isr28
 global isr29
 global isr30
 global isr31
+extern error_handler
 
 	
 isr0:
-	iret
+	cli
+	push byte 0
+	push byte 0
+	jmp isr_common
 
 isr1:
-	iret
+	cli
+	push byte 0
+	push byte 1
+	jmp isr_common
 
 isr2:
-	iret
+	cli
+	push byte 0
+	push byte 2
+	jmp isr_common
 
 isr3:
-	iret
+	cli
+	push byte 0
+	push byte 3
+	jmp isr_common
 
 isr4:
-	iret
+	cli
+	push byte 0
+	push byte 4
+	jmp isr_common
 
 isr5:
-	iret
+	cli
+	push byte 0
+	push byte 5
+	jmp isr_common
 
 isr6:
-	iret
+	cli
+	push byte 0
+	push byte 6
+	jmp isr_common
 
 isr7:
-	iret
+	cli
+	push byte 0
+	push byte 7
+	jmp isr_common
 
 isr8:
-	add esp, 1
-	iret
+	cli
+	push byte 8
+	jmp isr_common
 	
 isr9:
-	iret
+	cli
+	push byte 0
+	push byte 9
+	jmp isr_common
 
 isr10:
-	add esp, 1
-	iret
+	cli
+	push byte 10
+	jmp isr_common
 	
 isr11:
-	add esp, 1
-	iret
+	cli
+	push byte 11
+	jmp isr_common
 	
 isr12:
-	add esp, 1
-	iret
+	cli
+	push byte 12
+	jmp isr_common
 
 isr13:
-	add esp, 1
-	iret
+	cli
+	push byte 13
+	jmp isr_common
 	
 isr14:
-	add esp, 1
-	iret
+	cli
+	push byte 14
+	jmp isr_common
 
 isr15:
-	iret
+	cli
+	push byte 0
+	push byte 15
+	jmp isr_common
 
 isr16:
-	iret
+	cli
+	push byte 0
+	push byte 16
+	jmp isr_common
 	
 isr17:
-	iret
+	cli
+	push byte 0
+	push byte 17
+	jmp isr_common
 	
 isr18:
-	iret
+	cli
+	push byte 0
+	push byte 18
+	jmp isr_common
 	
 isr19:
-	iret
+	cli
+	push byte 0
+	push byte 19
+	jmp isr_common
 	
 isr20:
-	iret
+	cli
+	push byte 0
+	push byte 20
+	jmp isr_common
 	
 isr21:
-	iret
+	cli
+	push byte 0
+	push byte 21
+	jmp isr_common
 	
 isr22:
-	iret
+	cli
+	push byte 0
+	push byte 22
+	jmp isr_common
 	
 isr23:
-	iret
+	cli
+	push byte 0
+	push byte 23
+	jmp isr_common
 	
 isr24:
-	iret
+	cli
+	push byte 0
+	push byte 24
+	jmp isr_common
 	
 isr25:
-	iret
+	cli
+	push byte 0
+	push byte 25
+	jmp isr_common
 	
 isr26:
-	iret
+	cli
+	push byte 0
+	push byte 26
+	jmp isr_common
 	
 isr27:
-	iret
+	cli
+	push byte 0
+	push byte 27
+	jmp isr_common
 	
 isr28:
-	iret
+	cli
+	push byte 0
+	push byte 28
+	jmp isr_common
 	
 isr29:
-	iret
+	cli
+	push byte 0
+	push byte 29
+	jmp isr_common
 	
 isr30:
-	iret
+	cli
+	push byte 0
+	push byte 30
+	jmp isr_common
 	
 isr31:
+	cli
+	push byte 0
+	push byte 31
+	jmp isr_common
+
+isr_common:
+	pusha
+	push ds
+	push es
+	push fs
+	push gs
+	mov ax, 0x10
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	push esp
+	jmp error_handler
+	pop esp
+	pop gs
+	pop fs
+	pop es
+	pop ds
+	popa
+	add esp, 8
 	iret

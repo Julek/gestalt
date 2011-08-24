@@ -12,5 +12,6 @@ void k_main(void* multi_data, unsigned int magic)
   clear_screen();
   print("Gestalt OS v 0.0.1 beta booting.\n\n");
   gdt_init();
+  isrs_install();
  return;
 }
