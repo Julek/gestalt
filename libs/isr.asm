@@ -233,7 +233,7 @@ isr_common:
 	mov fs, ax
 	mov gs, ax
 	push esp
-	jmp error_handler
+	call error_handler
 	pop esp
 	pop gs
 	pop fs

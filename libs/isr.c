@@ -52,11 +52,11 @@ char* exceptions[32] = {
   "Stack Fault Exception\n",
   "General Protection Fault Exception\n",
   "Page Fault Exception\n",
-  "Unknown Interrupt Exception\n",
+  "x87 FPU Floating-Point Error\n",
   "Coprocessor Fault Exception\n",
   "Alignment Check Exception\n",
   "Machine Check Exception\n",
-  "Reserved Exceptions\n",
+  "SIMD floating point exception\n",
   "Reserved Exceptions\n",
   "Reserved Exceptions\n",
   "Reserved Exceptions\n",
@@ -117,30 +117,20 @@ void isrs_install()
 
 typedef struct regs regs;
 
-struct regs //Something seriouslyt wrong here... check sizes, order and remember stack protector...
+struct regs
 {
-  unsigned int gs, fs, es, ds;
-  unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
-  unsigned int int_no, error_code;
-  unsigned int eip;
-  unsigned int cs;
-  unsigned int eflags, oesp;
-  unsigned int ss;
+    unsigned int gs, fs, es, ds;
+    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
+    unsigned int int_no, err_code;
+    unsigned int eip, cs, eflags, useresp, ss;
 } __attribute__ ((packed));
 
 void error_handler(regs* r)
 {
-  print("gs: %u\nfs: %u\nes: %u\nds: %u\nedi: %u\nesi: %u\nebp: %u\nesp: %u\nebx: %u\nedx: %u\necx: %u\neax: %u\nint_no: %u\nerror_code: %u\neip: %u\ncs: %u\neflags: %u\noesp: %u\nss: %u\n", r->gs, r->fs, r->es, r->ds, r->edi, r->esi, r->ebp, r->esp, r->ebx, r->edx, r->ecx, r->eax, (unsigned int) r->int_no, (unsigned int) r->error_code, r->eip, (unsigned int) r->cs, r->eflags, r->oesp, (unsigned int) r->ss);
   if(r->int_no < 32)
     {
-      print(exceptions[r->int_no]);
-      print("\nSystem Halting, error", r->gs);
-      kill();
-    }
-  else
-    {
-      print("Unknown exception, this shouldn't be here....\n");
-      print("\nSystem Halting, error\n");
+      print("\n%s", exceptions[r->int_no]);
+      print("eip: %h\nSystem Halting!!!\n", r->eip);
       kill();
     }
   return;

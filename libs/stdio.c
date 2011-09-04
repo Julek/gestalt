@@ -22,55 +22,87 @@ void print(char* string, ...)
 		  putch('-');
 		  num *= -1;
 		}
-	      if(num <= 9)
-		{
-		  putch((char)(num + 48));
-		  i++;
-		  continue;
-		}
 	      int pow = 1;
 	      for(int temp = num; temp >= 10; temp /= 10, pow *= 10);
 	      for(; pow != 0; pow /= 10)
 		{
-		  putch((char)((num / pow) + 48));
+		  putch((char)((num / pow) + '0'));
 		  num -= ((num / pow) * pow);
 		}	    
-	      i++;
-	      continue;
 	    }
-	  if(string[i + 1] == 'u')
+	  else if(string[i + 1] == 'u')
 	    {
 	      unsigned int num = va_arg(list, unsigned int);
-	      if(num <= 9)
-		{
-		  putch((char)(num + 48));
-		  i++;
-		  continue;
-		}
 	      unsigned int pow = 1;
 	      for(unsigned int temp = num; temp >= 10; temp /= 10, pow *= 10);
 	      for(; pow != 0; pow /= 10)
 		{
-		  putch((char)((num / pow) + 48));
+		  putch((char)((num / pow) + '0'));
 		  num -= ((num / pow) * pow);
 		}	    
-	      i++;
-	      continue;
 	    }
-	  if(string[i + 1] == 'c')
+	  else if(string[i + 1] == 'h')
+	    {
+	      print("0x");
+	      unsigned int num = va_arg(list, unsigned int);
+	      for(int digit, counter = 28; counter != -4; counter -= 4)
+		{
+		  digit = (num >> counter) & 0xF;
+		  if(digit <= 9)
+		    putch((char)(digit + '0'));
+		  else
+		    putch((char)((digit - 10) + 'A'));
+		}	    
+	    }
+	  else if(string[i + 1] == 'x')
+	    {
+	      print("0x");
+	      unsigned short num = (unsigned short)va_arg(list, unsigned int);
+	      if(num ==0)
+		putch('0');
+	      else
+		for(int digit, counter = 12; counter != -4; counter -= 4)
+		  {
+		    digit = (num >> counter) & 0xF;
+		    if(digit <= 9)
+		      putch((char)(digit + '0'));
+		    else
+		      putch((char)((digit - 10) + 'A'));
+		  }	    
+	    }
+	  else if(string[i + 1] == 'k')
+	    {
+	      print("0x");
+	      unsigned char num = (unsigned char)va_arg(list, unsigned int);
+	      if(num ==0)
+		putch('0');
+	      else
+		for(int digit, counter = 4; counter != -4; counter -= 4)
+		  {
+		    digit = (num >> counter) & 0xF;
+		    if(digit <= 9)
+		      putch((char)(digit + '0'));
+		    else
+		      putch((char)((digit - 10) + 'A'));
+		  }	    
+	    }
+	  else if(string[i + 1] == 'c')
 	    {
 	      char c = (char)va_arg(list, int);
 	      putch(c);
-	      i++;
-	      continue;
 	    }
-	  if(string[i + 1] == 's')
+	  else if(string[i + 1] == 's')
 	    {
 	      char* s = va_arg(list, char*);
 	      print(s);
-	      i++;
-	      continue;
 	    }
+	  else
+	    {
+	      putch('%');
+	      i--;
+	    }
+	  i++;
+	  continue;
 	}
       putch(string[i]);
     }

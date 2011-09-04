@@ -1,4 +1,5 @@
 #include <system.h>
+#include <stdio.h>
 
 unsigned char inb(unsigned short port)
 {
@@ -21,6 +22,8 @@ void cli()
 
 void sti()
 {
+  print("Test1\n");
   __asm__ __volatile__ ("sti");
+  print("Test2");
   return;
 }

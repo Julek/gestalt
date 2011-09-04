@@ -1,6 +1,7 @@
 #include <stack_protector.h>
 #include <system.h>
 #include <stdsymbols.h>
+#include <stdio.h>
 
 void * __stack_chk_guard = NULL;
 
@@ -12,6 +13,7 @@ void __stack_chk_guard_setup()
 
 void __stack_chk_fail()
 {
-  __asm__ __volatile__ ("int 0x0C");
+  print("Stack overflow...\n");
+  //__asm__ __volatile__ ("int 0x0C");
   kill();
 }
