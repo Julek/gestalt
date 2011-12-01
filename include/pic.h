@@ -1,6 +1,8 @@
 #ifndef PIC_H
 #define PIC_H
 
-void PIC_remap();
+#define PIC_BASE 32
+
+extern void pic_remap();
 
 #endif

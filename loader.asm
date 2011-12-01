@@ -2,7 +2,7 @@
 
 global loader
 	
-extern	kill
+extern kill
 extern k_main
 
 section .text

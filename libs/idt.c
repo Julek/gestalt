@@ -1,5 +1,5 @@
-#include <idt.h>
 #include <stdbool.h>
+#include <idt.h>
 
 idt_entry IDT[256];
 idt_descriptor idt_desc = {.limit = (256*8), .address = (unsigned int)&IDT};
@@ -16,7 +16,7 @@ void setup_idt()
   return;
 }
 
-void add_kint(unsigned char no, unsigned int offset, unsigned short selector)
+void install_kint(unsigned char no, unsigned int offset, unsigned short selector)
 {
   idt_entry* curr = &IDT[no];
   curr->offset_b = (unsigned short)(offset & 0xFFFF);

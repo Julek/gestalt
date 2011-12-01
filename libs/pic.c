@@ -1,9 +1,9 @@
-#include <system.h>
 #include <stdio.h>
+#include <system.h>
+#include <pic.h>
 
-void PIC_remap()
+void pic_remap()
 {
-  print("Remapping PICs...\n");
   unsigned char a = inb(0x21);
   unsigned char b = inb(0xA1);
   
@@ -11,9 +11,9 @@ void PIC_remap()
   for(int i = 0; i < 100000; i++);
   outb(0xA0, 0x11);
   for(int i = 0; i < 100000; i++);
-  outb(0x21, 32);
+  outb(0x21, PIC_BASE);
   for(int i = 0; i < 100000; i++);
-  outb(0xA1, 39);
+  outb(0xA1, PIC_BASE + 7);
   for(int i = 0; i < 100000; i++);
   outb(0x21, 4);
   for(int i = 0; i < 100000; i++);
@@ -27,8 +27,6 @@ void PIC_remap()
 
   outb(0x21, a);
   outb(0xA1, b);
-
-  print("PICs remapped.\n");
-
+  
   return;
 }

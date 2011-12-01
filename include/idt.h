@@ -22,8 +22,10 @@ struct idt_entry
 
 extern void setup_idt();
 
-extern void add_kint(unsigned char no, unsigned int offset, unsigned short selector);
+extern void install_kint(unsigned char no, unsigned int offset, unsigned short selector);
 
 extern void lidt();
+
+extern void *int_routines[256];
 
 #endif

@@ -1,2 +1,3 @@
 boot: cdrom
 ata0-slave: type=cdrom, path=gestalt.iso, status=inserted
+megs: 32

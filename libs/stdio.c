@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <system.h>
 #include <stdarg.h>
+#include <system.h>
+#include <stdio.h>
 
 unsigned short *restrict videoram = (unsigned short*)0xb8000;
 unsigned short cursor = 0;

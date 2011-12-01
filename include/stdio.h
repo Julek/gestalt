@@ -9,6 +9,4 @@ extern void clear_screen();
 extern void scroll(unsigned char lines);
 extern void putch(char c);
 
-//extern unsigned short *restrict videoram;
-
 #endif
