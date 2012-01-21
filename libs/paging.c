@@ -10,7 +10,7 @@ unsigned int __attribute__ ((aligned(4096))) page_directory[1024] = {[0] = ((uns
 
 void init_paging()
 {
-  //enable_paging();
+  enable_paging();
   return;
 }
 
