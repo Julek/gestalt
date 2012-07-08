@@ -9,24 +9,6 @@ gdt_descriptor gdt_desc = {.size = 0, .offset = (unsigned int)&table};
 
 const unsigned char access_bytes[] = {0x9A, 0x92, 0x90, 0xBA, 0xB2, 0xB0, 0xDA, 0xD2, 0xD0, 0xFA, 0xF2, 0xF0} ;
 
-bool gdt_started = False;
-
-void init_gdt()
-{
-  table[0].limit_b = 0;
-  table[0].base_b = 0;
-  table[0].base_tb = 0;
-  table[0].access = 0;
-  table[0].flags_limt = 0;
-  table[0].base_tt = 0;
-  if(gdt_desc.size == 0)
-    gdt_desc.size = 7;
-  
-  gdt_started = True;
-
-  return;
-}
-
 bool add_gdt_entry(unsigned int base, unsigned int limit, segment t)
 {
   if(limit >= 1048576)
@@ -34,9 +16,6 @@ bool add_gdt_entry(unsigned int base, unsigned int limit, segment t)
 
   if(t > 11)
     return False;
-
-  if(!gdt_started)
-    init_gdt();
 
   gdt_entry* curr = &table[(gdt_desc.size + 1)/8];
   curr->limit_b = (unsigned short)(limit & 0x0000FFFF);
@@ -70,10 +49,17 @@ bool set_segment_registers(segment code, segment data)
   return True;
 }
 
-bool init_segmentation()
+bool init_gdt()
 {
   
-  init_gdt();
+  table[0].limit_b = 0;
+  table[0].base_b = 0;
+  table[0].base_tb = 0;
+  table[0].access = 0;
+  table[0].flags_limt = 0;
+  table[0].base_tt = 0;
+
+  gdt_desc.size = 7;
   
   if(!add_gdt_entry(0, 0xFFFFF, k_text))
     {
@@ -136,13 +122,6 @@ bool init_segmentation()
  if(!add_gdt_entry(0, 0xFFFFF, a_rodata))
    {
      print("\n\nError: Application static data segment descriptor was not succesfully added to GDT.\n\n");
-     return False;
-   }
-
- lgdt();
- if(!set_segment_registers(k_text, k_data))
-   {
-     print("\n\nError: Invalid segment descriptor offsets.\n\n");
      return False;
    }
 

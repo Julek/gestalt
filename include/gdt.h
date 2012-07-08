@@ -4,6 +4,8 @@
 #include <access.h>
 #include <stdbool.h>
 
+#define enable_segmentation() lgdt()
+
 typedef struct gdt_descriptor gdt_descriptor;
 
 struct gdt_descriptor
@@ -24,7 +26,8 @@ struct gdt_entry
   unsigned char base_tt;
 } __attribute__ ((packed));
 
-extern bool init_segmentation();
+extern bool init_gdt();
+extern void lgdt();
 
 extern bool set_segment_registers(segment code, segment data);
 

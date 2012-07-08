@@ -6,7 +6,7 @@
 #include <stack_protector.h>
 #include <stdio.h>
 
-void k_main(multiboot_info_t* multi_data, unsigned int magic)
+void k_main(multiboot_info_t* multi_data __attribute__ ((unused)), unsigned int magic)
 {
 
   if(magic != MULTIBOOT_BOOTLOADER_MAGIC)
@@ -15,41 +15,53 @@ void k_main(multiboot_info_t* multi_data, unsigned int magic)
       return;
     }
 
-  multi_data++;
-
   clear_screen();
 
-  print("Gestalt OS v 0.0.1 beta booting.\n\n");
+  //print("Gestalt OS v 0.0.1 beta booting.\n\n");
+  
+  print("Gestalt OS initial build\n");
 
-  if(init_segmentation())    
-    print("Segmentation initialised.\n");
+
+  print("\nSegmentation:\n");
+  if(init_gdt())    
+    print("- GDT initialised.\n");
   else
     {
+      clear_screen();
       print("Error, segmentation initialisation failed.\nHalting.\n");
       return;
     }
 
-  install_ints();
-  print("Interrupts system initialised.\n");
+  enable_segmentation();
+  print("- GDT loaded.\n");
 
-  init_paging();
+   if(set_segment_registers(k_text, k_data))
+     print("- Segment registers updated\n");
+   else
+   {
+     clear_screen();
+     print("Error: Invalid segment descriptor offsets.\nHalting.\n");
+     return;
+   }
+
+  print("\nPaging:\n");
+  
+  setup_page_dir();
+  print("- Page directory setup\n");
+
+  map_kernel();
+  print("- Kernel pages mapped (id) to page tables.\n");
+
+  map_page(0xb8000, 0xb8000, 3);
+  print("- Video memory pages mapped (id) to page tables.\n");
+
+  enable_paging();
+  print("- Paging enabled\n\n");
+
+
+  print("Interrupts:\n");
+  install_ints();
+  print("- Interrupt system initialised.\n\n");
 
  return;
 }
-
-/*  if(multi_data->flags & 0x01)
-    {
-      print("Total contiguous memory: %ukB.\n", (multi_data->mem_upper - multi_data->mem_lower));
-      if(multi_data->flags & 0x20)
-	{
-	  memory_map_t *mmap = (memory_map_t*)multi_data->mmap_addr;
-	  for(int i = 1; (unsigned int)mmap < multi_data->mmap_addr + multi_data->mmap_length; i++)
-	    {
-	      print("Segment %u:\n", i);
-	      print("base address: %h.\n", mmap->base_addr_low);
-	      print("length: %h.\n", mmap->length_low);
-	      print("type: %u.\n", mmap->type);
-	      mmap = (memory_map_t*)((unsigned int)mmap +mmap->size + sizeof(unsigned int));
-	    }
-	}
-    }*/

@@ -29,5 +29,8 @@ SECTIONS {
 	     *(.bss)
 	     _ebss = .;
 	     }
+
+	.end ALIGN (0x1000) : {
 	     _end = .;
+	     }
 }    
