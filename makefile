@@ -12,7 +12,7 @@ all:
 
 build: gestalt.iso
 	ndisasm -u kernel.bin > out.txt 
-	rm -f *.o *.bin
+	rm -f *.o *.bin ./libs/*.o
 	cloc kernel.c loader.asm makefile ./include/* ./libs/* --by-file-by-lang > report.txt
 
 
