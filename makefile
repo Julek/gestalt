@@ -1,4 +1,4 @@
-CC=i586-elf-gcc
+CC=i686-elf-gcc
 ASM=nasm
 CFLAGS= -c -Wall -Wextra -nostdlib -nostartfiles -nodefaultlibs -std=c99 -fstack-protector-all -masm=intel -I ./include
 AFLAGS= -f elf
@@ -33,7 +33,7 @@ kernel.o : kernel.c
 	$(ASM) $< -o $@ $(AFLAGS)
 
 kernel.bin : loader.o kernel.o $(COBJECTS) $(AOBJECTS)
-	i586-elf-ld loader.o kernel.o $(COBJECTS) $(AOBJECTS) -o kernel.bin -T linker.ld
+	i686-elf-ld loader.o kernel.o $(COBJECTS) $(AOBJECTS) -o kernel.bin -T linker.ld
 
 commit:
 	git add ./libs/*.c ./libs/*.asm

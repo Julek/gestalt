@@ -2,7 +2,7 @@
 classified 39 files      39 unique files.                              
        1 file ignored.
 
-http://cloc.sourceforge.net v 1.56  T=0.5 s (78.0 files/s, 7340.0 lines/s)
+http://cloc.sourceforge.net v 1.60  T=0.09 s (417.9 files/s, 39322.8 lines/s)
 --------------------------------------------------------------------------------
 File                                         blank        comment           code
 --------------------------------------------------------------------------------
@@ -39,10 +39,10 @@ loader.asm                                      10              0             21
 ./include/stdbool.h                              2              0              6
 ./include/stack_protector.h                      3              0              6
 ./include/interrupt_handler.h                    3              0              5
-./include/pic.h                                  3              0              5
 ./include/access.h                               3              1              5
-./libs/systemcall.c                              1              0              4
+./include/pic.h                                  3              0              5
 ./include/stdsymbols.h                           2              0              4
+./libs/systemcall.c                              1              0              4
 ./include/utils.h                                2              0              4
 ./include/palloc.h                               3              0              3
 --------------------------------------------------------------------------------
