@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <multiboot.h>
 
 unsigned int total_memory, total_available_memory;

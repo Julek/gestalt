@@ -2,11 +2,14 @@
 #define PAGING_H
 
 #include <stdbool.h>
+#include <multiboot.h>
 
-extern void setup_page_dir();
-extern void map_kernel();
-extern void enable_paging();
+bool setup_paging(multiboot_info_t* multi_data);
 
-extern bool map_page(unsigned int page_num, unsigned int phys_addr, unsigned short config);
+unsigned long palloc(int num_pages);
+bool pfree(unsigned long page_address, int num_pages);
+
+void lock_allocation();
+void unlock_allocation();
 
 #endif

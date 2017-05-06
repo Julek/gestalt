@@ -3,17 +3,19 @@
 #include <system.h>
 #include <stack_protector.h>
 
-void * __stack_chk_guard = NULL;
+void * __stack_chk_guard = 0x00000aff;
 
-void __stack_chk_guard_setup()
+/*void __stack_chk_guard_setup()
 {
   
-  *((unsigned int*)(&__stack_chk_guard)) = 0x00000aff;
+  *((unsigned int*)(&__stack_chk_guard)) = ;
+
+  print("stack_canary setup mother fuckers!");
   
   return;
-}
+  }*/
 
-void __stack_chk_fail()
+__attribute__((noreturn)) void __stack_chk_fail()
 {
 
   print("Stack overflow detected by stack smashing protector...\n");

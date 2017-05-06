@@ -4,7 +4,7 @@
 idt_entry IDT[256];
 idt_descriptor idt_desc = {.limit = (256*8), .address = (unsigned int)&IDT};
 
-bool idt_started = False;
+bool idt_started = false;
 
 void setup_idt()
 {
@@ -12,7 +12,7 @@ void setup_idt()
     return;
   for(int i = 0; i < 256; i++)
     IDT[i].attr = (unsigned char)0;
-  idt_started = True;
+  idt_started = true;
   return;
 }
 

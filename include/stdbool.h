@@ -2,7 +2,7 @@
 #define STDBOOL_H
 
 #define bool char
-#define False 0
-#define True 1
+#define false 0
+#define true 1
 
 #endif

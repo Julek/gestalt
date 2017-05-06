@@ -17,6 +17,9 @@
 
 /* Macros. */
 
+#ifndef _MULTIBOOT_H_
+#define _MULTIBOOT_H_
+
 /* The magic number for the Multiboot header. */
 #define MULTIBOOT_HEADER_MAGIC          0x1BADB002
 
@@ -129,3 +132,4 @@ typedef struct EA_memory_map
 } EA_memory_map;
 
 #endif /* ! ASM */
+#endif

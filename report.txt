@@ -1,61 +1,63 @@
-      39 text files.
-classified 39 files      39 unique files.                              
-       1 file ignored.
+      44 text files.
+classified 42 files      42 unique files.                              
+       4 files ignored.
 
-http://cloc.sourceforge.net v 1.60  T=0.09 s (417.9 files/s, 39322.8 lines/s)
+http://cloc.sourceforge.net v 1.60  T=0.03 s (1561.4 files/s, 172633.2 lines/s)
 --------------------------------------------------------------------------------
 File                                         blank        comment           code
 --------------------------------------------------------------------------------
 ./libs/interrupts.asm                          261              0           1554
+./libs/liballoc.c                              170             23            348
 ./libs/interrupt_handler.c                      18              0            339
 ./include/interrupt_stubs.h                      2              0            259
-./libs/stdio.c                                  16              0            169
+./libs/stdio.c                                  16              0            176
+./libs/paging.c                                 60              9            161
 ./libs/gdt.c                                    19              0            110
-./include/multiboot.h                           19             29             83
+./include/multiboot.h                           20             29             86
 ./include/stdarg.h                              20             44             69
-kernel.c                                        17              1             49
-./libs/paging.c                                 14              0             36
+kernel.c                                        17              1             51
+./include/liballoc.h                            27             35             37
 makefile                                        10              0             32
 ./libs/idt.c                                     5              0             29
 ./libs/pic.c                                     5              0             27
-./libs/hardware.c                                7              6             26
+./libs/hardware.c                                7              6             27
 ./include/gdt.h                                  9              0             25
 ./libs/system.c                                  4              0             23
 ./include/idt.h                                  9              0             22
 loader.asm                                      10              0             21
 ./libs/irq.c                                    10              0             19
+./libs/liballoc_hooks.c                          4              0             19
 ./libs/isr.c                                    11              0             18
-./libs/stack_protector.c                         8              0             16
 ./include/linker_symbols.h                       3              0             14
 ./libs/utils.c                                   1              0             13
+./libs/stack_protector.c                         9              6             11
 ./include/regs.h                                 3              0             11
+./include/paging.h                               5              0             10
 ./include/stdio.h                                2              0             10
-./libs/palloc.c                                  2              1              9
-./libs/system.asm                                5              0              8
-./include/paging.h                               4              0              8
 ./include/system.h                               3              0              8
-./include/isr.h                                  3              0              7
+./libs/system.asm                                5              0              8
 ./include/irq.h                                  3              0              7
+./include/isr.h                                  3              0              7
 ./include/stdbool.h                              2              0              6
-./include/stack_protector.h                      3              0              6
+./include/pic.h                                  3              0              5
+./include/stack_protector.h                      3              1              5
 ./include/interrupt_handler.h                    3              0              5
 ./include/access.h                               3              1              5
-./include/pic.h                                  3              0              5
-./include/stdsymbols.h                           2              0              4
 ./libs/systemcall.c                              1              0              4
+./include/stdsymbols.h                           2              0              4
 ./include/utils.h                                2              0              4
-./include/palloc.h                               3              0              3
+./libs/mem.c                                     2             17              0
 --------------------------------------------------------------------------------
-SUM:                                           525             82           3063
+SUM:                                           772            172           3589
 --------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
 Assembly                         3            276              0           1583
-C                               15            138              8            887
-C/C++ Header                    20            101             74            561
+C                               17            359             62           1375
+C/C++ Header                    20            127            110            599
 make                             1             10              0             32
 -------------------------------------------------------------------------------
-SUM:                            39            525             82           3063
+SUM:                            41            772            172           3589
 -------------------------------------------------------------------------------

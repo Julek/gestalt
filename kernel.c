@@ -1,5 +1,6 @@
 #include <gdt.h>
 #include <interrupt_handler.h>
+#include <liballoc.h>
 #include <linker_symbols.h>
 #include <multiboot.h>
 #include <paging.h>
@@ -8,7 +9,7 @@
 
 void k_main(multiboot_info_t* multi_data __attribute__ ((unused)), unsigned int magic)
 {
-
+  
   if(magic != MULTIBOOT_BOOTLOADER_MAGIC)
     {
       print("Non Multiboot-compliant boot loader.\nHalting.\n");
@@ -45,23 +46,24 @@ void k_main(multiboot_info_t* multi_data __attribute__ ((unused)), unsigned int 
    }
 
   print("\nPaging:\n");
+
+  if(!setup_paging(multi_data)) {
+    print("Error: Paging initialization failure.\nHalting.\n");
+    return; 
+  }
   
-  setup_page_dir();
-  print("- Page directory setup\n");
-
-  map_kernel();
-  print("- Kernel pages mapped (id) to page tables.\n");
-
-  map_page(0xb8000, 0xb8000, 3);
-  print("- Video memory pages mapped (id) to page tables.\n");
-
-  enable_paging();
-  print("- Paging enabled\n\n");
-
-
   print("Interrupts:\n");
   install_ints();
   print("- Interrupt system initialised.\n\n");
 
- return;
+  print("Allocation test:\n");
+
+  void* test = malloc(100);
+  print("- Address returned: %h\n", (unsigned long)test);
+
+  free(test);
+
+  print("- Memory freed\n");
+  
+  return;
 }

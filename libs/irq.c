@@ -8,11 +8,11 @@ bool install_irq_handler(unsigned char int_no, void (*handler)(regs *r))
 {
   
   if((int_no <= PIC_BASE) && ((int_no - PIC_BASE) >= 16))
-    return False;
+    return false;
   
   int_routines[int_no] = handler;
 
-  return True;
+  return true;
 
 }
 
@@ -20,10 +20,10 @@ bool uninstall_irq_handler(unsigned char int_no)
 {
 
   if((int_no <= PIC_BASE) && ((int_no - PIC_BASE) >= 16))
-    return False;
+    return false;
 
   int_routines[int_no] = 0;
 
-  return True;
+  return true;
 }
 

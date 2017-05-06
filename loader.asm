@@ -14,7 +14,7 @@ MultiBootHeader:
 	dd -(0x1BADB005)
 
 loader:
-	mov esp, (stack + 0x4000)
+	mov esp, (stack + 0x8000)
 	mov ebp, esp
 	push eax
 	push ebx
@@ -25,7 +25,7 @@ loader:
 section .bss
 align 4
 stack:	
-	resb 0x4000
+	resb 0x8000
 
 	
 
