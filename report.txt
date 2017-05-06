@@ -1,8 +1,8 @@
-      44 text files.
-classified 42 files      42 unique files.                              
-       4 files ignored.
+      40 text files.
+classified 40 files      40 unique files.                              
+       1 file ignored.
 
-http://cloc.sourceforge.net v 1.60  T=0.03 s (1561.4 files/s, 172633.2 lines/s)
+http://cloc.sourceforge.net v 1.60  T=0.03 s (1481.8 files/s, 167216.5 lines/s)
 --------------------------------------------------------------------------------
 File                                         blank        comment           code
 --------------------------------------------------------------------------------
@@ -19,45 +19,44 @@ kernel.c                                        17              1             51
 ./include/liballoc.h                            27             35             37
 makefile                                        10              0             32
 ./libs/idt.c                                     5              0             29
-./libs/pic.c                                     5              0             27
 ./libs/hardware.c                                7              6             27
+./libs/pic.c                                     5              0             27
 ./include/gdt.h                                  9              0             25
 ./libs/system.c                                  4              0             23
 ./include/idt.h                                  9              0             22
 loader.asm                                      10              0             21
-./libs/irq.c                                    10              0             19
 ./libs/liballoc_hooks.c                          4              0             19
+./libs/irq.c                                    10              0             19
 ./libs/isr.c                                    11              0             18
 ./include/linker_symbols.h                       3              0             14
 ./libs/utils.c                                   1              0             13
-./libs/stack_protector.c                         9              6             11
 ./include/regs.h                                 3              0             11
-./include/paging.h                               5              0             10
+./libs/stack_protector.c                         9              6             11
 ./include/stdio.h                                2              0             10
+./include/paging.h                               5              0             10
 ./include/system.h                               3              0              8
 ./libs/system.asm                                5              0              8
-./include/irq.h                                  3              0              7
 ./include/isr.h                                  3              0              7
+./include/irq.h                                  3              0              7
 ./include/stdbool.h                              2              0              6
-./include/pic.h                                  3              0              5
-./include/stack_protector.h                      3              1              5
 ./include/interrupt_handler.h                    3              0              5
+./include/pic.h                                  3              0              5
 ./include/access.h                               3              1              5
+./include/stack_protector.h                      3              1              5
 ./libs/systemcall.c                              1              0              4
-./include/stdsymbols.h                           2              0              4
 ./include/utils.h                                2              0              4
-./libs/mem.c                                     2             17              0
+./include/stdsymbols.h                           2              0              4
 --------------------------------------------------------------------------------
-SUM:                                           772            172           3589
+SUM:                                           770            155           3589
 --------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
 Assembly                         3            276              0           1583
-C                               17            359             62           1375
+C                               16            357             45           1375
 C/C++ Header                    20            127            110            599
 make                             1             10              0             32
 -------------------------------------------------------------------------------
-SUM:                            41            772            172           3589
+SUM:                            40            770            155           3589
 -------------------------------------------------------------------------------

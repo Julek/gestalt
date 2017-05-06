@@ -3,7 +3,7 @@
 #include <system.h>
 #include <stack_protector.h>
 
-void * __stack_chk_guard = 0x00000aff;
+void * __stack_chk_guard = (void *)0x00000aff;
 
 /*void __stack_chk_guard_setup()
 {
