@@ -1,0 +1,15 @@
+.cabal-sandbox/
+cabal.sandbox.config
+autom4te.cache/
+config.log
+config.status
+configure
+dist/
+include/HsDirectoryConfig.h
+include/HsDirectoryConfig.h.in
+*~
+
+# In GHC build tree:
+GNUmakefile
+dist-install
+ghc.mk

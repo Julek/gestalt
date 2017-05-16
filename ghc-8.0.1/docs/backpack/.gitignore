@@ -1,0 +1,12 @@
+*.aux
+*.bak
+*.bbl
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.out
+*.toc
+backpack-impl.pdf

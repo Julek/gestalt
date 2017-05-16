@@ -1,0 +1,26 @@
+sudo: false
+
+matrix:
+  include:
+    - env: CABALVER=head GHCVER=head
+      addons: {apt: {packages: [cabal-install-head,ghc-head],  sources: [hvr-ghc]}}
+
+  allow_failures:
+    - env: CABALVER=head GHCVER=head
+
+before_install:
+ - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
+ - cabal --version
+ - cabal update
+ - cd haddock-library
+ - cabal install --only-dependencies --enable-tests
+ - cabal install doctest
+ # --ghc-options=-Werror
+ - cabal configure --enable-tests && cabal build && cabal test
+ - doctest -isrc -i$(echo vendor/attoparsec-*) -optP-include -optPdist/build/autogen/cabal_macros.h src/Documentation/Haddock/Parser.hs
+ - cabal install
+ - cd ..
+ - (cd haddock-api/ && cabal install --only-dependencies --enable-tests && cabal configure --enable-tests && cabal build && cabal test && cabal install)
+
+script:
+ - cabal configure --enable-tests && cabal build && cabal test
